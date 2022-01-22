@@ -9,4 +9,8 @@ public interface Constants {
     String BUY = "B";
 
     String SELL = "S";
+
+    String PORTFOLIO = "PORTFOLIO";
+
+    String BBGCODE = "BBGCODE";
 }
