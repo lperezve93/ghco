@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
+import static com.lperezve.ghco.constant.Constants.BBGCODE;
+import static com.lperezve.ghco.constant.Constants.PORTFOLIO;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 
 @RestController
 @RequestMapping("/ghco")
@@ -27,7 +29,13 @@ public class GHCOController {
 
     @GetMapping(path = "/cash-position/bbgcode", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Double>> getCashPositionByBBGCode() throws GHCODataException {
-        LOGGER.info(" +++ getCashPositionByBBGCode() +++");
-        return new ResponseEntity<>(ghcoService.getCashPositionByBBGCode(), HttpStatus.OK);
+        LOGGER.info(" +++ Get Cash Position By BBGCode +++");
+        return new ResponseEntity<>(ghcoService.getCashPosition(BBGCODE), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/cash-position/portfolio", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Double>> getCashPositionByPortfolio() throws GHCODataException {
+        LOGGER.info(" +++ Get Cash Position By Portfolio +++");
+        return new ResponseEntity<>(ghcoService.getCashPosition(PORTFOLIO), HttpStatus.OK);
     }
 }
