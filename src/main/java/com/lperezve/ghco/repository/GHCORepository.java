@@ -1,7 +1,6 @@
 package com.lperezve.ghco.repository;
 
 import com.lperezve.ghco.model.Trade;
-import com.lperezve.ghco.service.GHCOService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Repository
 public class GHCORepository {
@@ -39,7 +37,7 @@ public class GHCORepository {
         return csvTrades;
     }
 
-    public Map<String, Trade> getProcessedTrades(){
+    public Map<String, Trade> getProcessedTrades() {
         return processedTrades;
     }
- }
+}
