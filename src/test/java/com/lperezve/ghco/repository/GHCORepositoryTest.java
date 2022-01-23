@@ -76,6 +76,11 @@ public class GHCORepositoryTest {
         assertThat(tradeList.size(), is(csvTrades.size()));
     }
 
+    /**
+     * Method to test: getProcessedTrades
+     * What is the Scenario: Retrieve a list of trades after processing
+     * What is the Result: Returns the list of processed trades
+     */
     @Test
     public void getProcessedTrades__getExpectedTrades() {
         Map<String, Trade> tradesToStore = createProcessedData();
