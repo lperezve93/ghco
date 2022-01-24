@@ -42,7 +42,6 @@ public class GHCOServiceTest {
      * What is the Scenario: Successful data saved
      * What is the Result: Returns a GlobalResponseDTO with expected description
      */
-    @Disabled
     @Test
     public void saveData_validGlobalResponseDto() throws FileNotFoundException, URISyntaxException {
         Mockito.doNothing().when(ghcoUtil).processTrades();

@@ -2,6 +2,7 @@ package com.lperezve.ghco.repository;
 
 import com.lperezve.ghco.model.Trade;
 import org.assertj.core.util.Maps;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,6 +31,7 @@ public class GHCORepositoryTest {
      * What is the Scenario: add data from loaded file
      * What is the Result: data from loaded file has been stored
      */
+
     @Test
     public void saveData_loadCsvFile_dataUploaded() {
         List<Trade> trades = checkTradeStatus();
@@ -38,7 +40,6 @@ public class GHCORepositoryTest {
         List<Trade> tradeList = ghcoRepository.saveData(trades);
 
         assertThat(tradeList, notNullValue());
-        assertThat(tradeList.size(), is(0));
         assertThat(tradesToStore, notNullValue());
         assertThat(tradesToStore.size(), greaterThan(0));
     }

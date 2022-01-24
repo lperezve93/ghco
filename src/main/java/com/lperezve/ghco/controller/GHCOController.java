@@ -1,5 +1,6 @@
 package com.lperezve.ghco.controller;
 
+import com.lperezve.ghco.dto.NewTradesResponseDTO;
 import com.lperezve.ghco.exception.GHCODataException;
 import com.lperezve.ghco.service.GHCOService;
 import org.slf4j.Logger;
@@ -8,9 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 
 import static com.lperezve.ghco.constant.Constants.BBGCODE;
@@ -38,4 +43,17 @@ public class GHCOController {
         LOGGER.info(" +++ Get Cash Position By Portfolio +++");
         return new ResponseEntity<>(ghcoService.getCashPosition(PORTFOLIO), HttpStatus.OK);
     }
+
+    @PostMapping(path = "/new-trades")
+    public ResponseEntity<NewTradesResponseDTO> addNewTrades(@RequestParam("file") MultipartFile file) throws IOException {
+
+        LOGGER.info(" +++ Add new trades by csv file +++");
+        if (file == null) {
+            throw new RuntimeException("You must select a file for uploading");
+        }
+        NewTradesResponseDTO response = ghcoService.processNewTrades(file);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }
