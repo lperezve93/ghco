@@ -1,0 +1,54 @@
+{
+	"variables": [],
+	"info": {
+		"name": "GHCO",
+		"_postman_id": "a090fa0a-a642-ace8-0176-900bbbba228e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST - UPLOAD NEW TRADES BY FILE",
+			"request": {
+				"url": "http://localhost:8080/ghco/new-trades",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"description": "",
+							"type": "file",
+							"src": "trades3.csv"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET - CASH POSITION BY BBGCODE ",
+			"request": {
+				"url": "http://localhost:8080/ghco/cash-position/bbgcode",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET - CASH POSITION BY PORTFOLIO",
+			"request": {
+				"url": "http://localhost:8080/ghco/cash-position/portfolio",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
