@@ -1,0 +1,42 @@
+Position calculator
+
+TIMEBOX:    2-3 hours max.
+
+The purpose of this exercise is to create an application to read the simplified trade booking information in the CSV file and process them for intraday position aggregations.
+
+The aggregation should extract cash positions (P&L) per BBGCode and per portfolio.
+
+The position results should be verified by unit testing and displayed.
+
+User Story: As a developer, I want to...
+
+- Process all New trades and display the position aggregation results;
+
+- Create an interactive way to add new trades, on top of what is loaded by the csv;
+
+- Process all actions in the trades.csv file i.e. New, Amend and Cancel and display the results of these actions in the position aggregation results;
+
+CLARIFICATIONS:
+
+Cash positions can be best illustrated by an example:
+BBGCode, time, side, quantity, price
+ABC1, T0, B, 100, 100
+ABC2, T1, B, 50, 200
+ABC2, T2, B, 50, 202
+ABC2, T3, S, 100, 205
+ABC1, T3, S, 50, 99
+Our PnL is:
+ABC1 = 50*99 [Partial Sale] - 100*100 [Purchase] = -50
+ABC2 = 100*205 [Full Sale] - (50*200 + 50*202) [Purchase] = 400
+TOTAL = 400 - 50 = 350 PROFIT
+This is a simplistic example - the provided CSV offers many more columns to break down these by.
+We desire the ability to independently break down our cash positions by BBGCode and per portfolio, e.g: a screen that shows BBGCode -> Cash position and another that shows portfolio -> Cash position.
+
+A NEW Order type is a previously unseen order.
+An AMEND Order type is updating a previous order which contained incorrect information - the tradeIds will match.
+A CANCEL Order type is the removal of a previous NEW (and potentially AMENDed) order.
+If an order is CANCELLED it should not be included in any calculations.
+If an order is AMENDED then only the most recent AMEND should be included.
+Otherwise, all NEW orders should be included in the calculations.
+
+In these calculations you should consider the SIDE of the trade as on some trade we spend cash to acquire a security and on others we are given cash for a security.
