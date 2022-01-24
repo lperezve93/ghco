@@ -6,12 +6,16 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +37,18 @@ public class CsvReader {
         LOGGER.info("+++ Retrieving and mapping data from {} +++", filepath); // Log changed
 
         return new CsvToBeanBuilder(new FileReader(filepath))
+                .withSeparator(Constants.COLON_CHAR)
+                .withType(Trade.class)
+                .build()
+                .parse();
+    }
+
+    public static List<Trade> csvReader(MultipartFile file) throws IOException {
+        LOGGER.info("+++ Retrieving and mapping data from {} +++", file.getName()); // Log changed
+
+        InputStreamReader streamReader = new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8);
+
+        return new CsvToBeanBuilder(streamReader)
                 .withSeparator(Constants.COLON_CHAR)
                 .withType(Trade.class)
                 .build()

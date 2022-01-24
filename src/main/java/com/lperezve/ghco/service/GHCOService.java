@@ -3,19 +3,28 @@ package com.lperezve.ghco.service;
 import com.lperezve.ghco.constant.Messages;
 import com.lperezve.ghco.csvReader.CsvReader;
 import com.lperezve.ghco.dto.GlobalResponseDTO;
+import com.lperezve.ghco.dto.NewTradesResponseDTO;
 import com.lperezve.ghco.exception.GHCODataException;
 import com.lperezve.ghco.model.Trade;
 import com.lperezve.ghco.repository.GHCORepository;
 import com.lperezve.ghco.util.GHCOUtil;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -82,5 +91,10 @@ public class GHCOService {
         }
         LOGGER.info("cashPositionBBGCode: " + cashPositions);
         return cashPositions;
+    }
+
+    public NewTradesResponseDTO processNewTrades(MultipartFile file) throws IOException {
+        List<Trade> tradesToProcess = CsvReader.csvReader(file);
+        return ghcoUtil.processNewTrades(tradesToProcess);
     }
 }
